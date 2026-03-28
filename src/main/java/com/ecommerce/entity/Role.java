@@ -1,4 +1,5 @@
 package com.ecommerce.entity;
 
-public class Role {
+public enum Role {
+    USER, PRODUCER, ADMIN
 }

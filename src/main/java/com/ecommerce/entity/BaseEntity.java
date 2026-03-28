@@ -1,4 +1,26 @@
 package com.ecommerce.entity;
 
-public class BaseEntity {
+import jakarta.persistence.*;
+import lombok.Data;
+import java.time.LocalDateTime;
+
+@Data
+@MappedSuperclass
+public abstract class BaseEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    private boolean isDeleted = false;
+    private LocalDateTime deletedAt;
+
+    @PrePersist
+    protected void onCreate() { createdAt = LocalDateTime.now(); }
+
+    @PreUpdate
+    protected void onUpdate() { updatedAt = LocalDateTime.now(); }
 }
