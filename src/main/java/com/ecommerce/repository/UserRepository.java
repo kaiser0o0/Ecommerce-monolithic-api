@@ -8,6 +8,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmailAndIsDeletedFalse(String email);
 
-    // Hard Delete Query (Cronjob için)
+    // Hard Delete Query
     void deleteByIsDeletedTrueAndDeletedAtBefore(LocalDateTime thresholdDate);
 }
