@@ -15,5 +15,5 @@ public class RegisterRequest {
     @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
 
-    private Role role; // USER veya PRODUCER gönderilebilir
+    private Role role;
 }
