@@ -10,9 +10,23 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: mysecretpassword
     ports:
-      - "5432:5432" # Sol taraf senin bilgisayarın (localhost), sağ taraf Container'ın içi
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: .
+    container_name: ecommerce-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-db
+    environment:
+
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/ecommerce_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=mysecretpassword
+    restart: always
 
 volumes:
   postgres_data:
