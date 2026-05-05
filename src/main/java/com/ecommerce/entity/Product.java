@@ -12,7 +12,7 @@ public class Product extends BaseEntity {
     private Double price;
     private Integer stock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "producer_id", nullable = false)
     private User producer;
 }

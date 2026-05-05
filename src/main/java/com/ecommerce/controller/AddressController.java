@@ -5,12 +5,12 @@ import com.ecommerce.dto.address.AddressRequest;
 import com.ecommerce.entity.Address;
 import com.ecommerce.entity.User;
 import com.ecommerce.service.AddressService;
-import com.ecommerce.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -19,17 +19,16 @@ import java.util.List;
 public class AddressController {
 
     private final AddressService addressService;
-    private final UserService userService;
 
     @PostMapping
-    public Result<Address> addAddress(@Valid @RequestBody AddressRequest request, Principal principal) {
-        User user = userService.getUserByEmail(principal.getName());
-        return Result.success(addressService.createAddress(user, request));
+    public ResponseEntity<Result<Address>> addAddress(@Valid @RequestBody AddressRequest request, @AuthenticationPrincipal User user) {
+        Result<Address> result = addressService.createAddress(user, request);
+        return result.isSuccess() ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
 
     @GetMapping
-    public Result<List<Address>> getMyAddresses(Principal principal) {
-        User user = userService.getUserByEmail(principal.getName());
-        return Result.success(addressService.getUserAddresses(user.getId()));
+    public ResponseEntity<Result<List<Address>>> getMyAddresses(@AuthenticationPrincipal User user) {
+        Result<List<Address>> result = addressService.getUserAddresses(user.getId());
+        return result.isSuccess() ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
 }

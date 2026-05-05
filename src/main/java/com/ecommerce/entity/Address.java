@@ -9,10 +9,11 @@ import lombok.EqualsAndHashCode;
 @Entity
 public class Address extends BaseEntity {
     private String title;
+    private String country;
     private String city;
     private String details;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }

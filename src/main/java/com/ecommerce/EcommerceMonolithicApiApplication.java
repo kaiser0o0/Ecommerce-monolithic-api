@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableScheduling // CleanupJob sınıfındaki Cronjob'ın çalışması için gerekli
+@EnableScheduling 
 public class EcommerceMonolithicApiApplication {
 
 	public static void main(String[] args) {
